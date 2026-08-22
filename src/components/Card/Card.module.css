@@ -1,0 +1,60 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 0;
+  border-radius: 15px;
+  padding: 30px 16px;
+  box-shadow: 0 9 16px rgba(0, 0, 0, 0.1);
+  background-color: white;
+  position: relative;
+}
+
+.cardLink {
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+}
+
+.cardLink:hover {
+  text-decoration: none;
+}
+
+.tagContainer {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.tag {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 16px;
+}
+
+.link {
+  color: black;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 16px;
+  transition: opacity 0.3s ease;
+}
+
+.link:hover {
+  opacity: 0.7;
+}
+
+.title {
+  margin: 0 auto 12px 0;
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 24px;
+}
+
+.lead {
+  margin: 0 auto 12px;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 16px;
+}

@@ -1,0 +1,15 @@
+.button {
+  background: none;
+  border: none;
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 22px;
+  color: #000;
+  text-decoration: underline;
+  cursor: pointer;
+  padding: 0;
+}
+
+.button:hover {
+  text-decoration: none;
+}

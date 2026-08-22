@@ -1,0 +1,20 @@
+.button {
+  margin-left: auto;
+  margin-bottom: 16px;
+  border: none;
+  padding: 0;
+  color: black;
+  font-family: inherit;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.2;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  background-color: transparent;
+  transition: opacity .2s ease;
+  cursor: pointer;
+}
+
+.button:hover {
+  opacity: .6;
+}

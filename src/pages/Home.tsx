@@ -1,15 +1,29 @@
-import { articles } from "../mock/articles";
+import { Lead } from "../components/Lead/Lead";
+import { CardSection } from "../components/CardSection/CardSection";
 
-export const Home = () => {
+export default function Home() {
   return (
-    <div>
-      <h1>Статьи</h1>
-
-      {articles.map(article => (
-        <div key={article._id}>
-          <h2>{article.title}</h2>
-        </div>
-      ))}
-    </div>
+    <>
+      <Lead
+        tag="h1"
+        title={
+          <>
+            Интернет-журнал
+            <br />о феминизме и женской культуре.
+          </>
+        }
+      />
+      <CardSection />
+      <Lead
+        tag="p"
+        variant="light"
+        title={
+          <>
+            Внеси свой вклад
+            <br />в развитие журнала!
+          </>
+        }
+      />
+    </>
   );
-};
+}

@@ -1,0 +1,28 @@
+.cardSection {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  margin-bottom: 32px;
+}
+
+.cards {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.button {
+  align-self: center;
+  border: none;
+  border-radius: 15px;
+  padding: 15px 36px;
+  font-weight: 700;
+  font-size: 14px;
+  background-color: var(--bg-accent);
+  transition: background-color 0.2s ease;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: #a79bb0;
+}

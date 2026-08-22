@@ -1,9 +1,23 @@
-export const MainLayout = ({ children }: any) => {
+import { useEffect } from 'react';
+import { Outlet, useLocation } from 'react-router-dom';
+import { Header } from '../components/Header/Header';
+import { Main } from '../components/Main/Main';
+import { Footer } from '../components/Footer/Footer';
+
+export const MainLayout = () => {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
   return (
-    <div className="layout">
-      <aside className="layout__sidebar">меню</aside>
-      <main className="layout__content">{children}</main>
-      <div className="layout__right">реклама</div>
-    </div>
+    <>
+      <Header />
+      <Main>
+        <Outlet />
+      </Main>
+      <Footer />
+    </>
   );
 };

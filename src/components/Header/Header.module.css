@@ -1,0 +1,63 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 0px 72px;
+  border-bottom-right-radius: 15px;
+  border-bottom-left-radius: 15px;
+  box-shadow: 0 4px 17px rgba(0, 0, 0, 0.08);
+  background: var(--bg-accent);
+  transform: translateY(0);
+  transition: transform 0.3s ease;
+}
+
+.headerHidden {
+  transform: translateY(-127%);
+}
+
+.logo {
+  width: 247px;
+  height: 162px;
+  margin: 8px auto;
+}
+
+.navigation {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.navButton {
+  position: absolute;
+  bottom: -45px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 73px;
+  height: 54px;
+  border: none;
+  border-radius: 15px;
+  padding: 17px 26px;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.08);
+  color: #8b8a8a;
+  background-color: white;
+  transition: background-color .3s ease;
+  cursor: pointer;
+}
+
+.navButton:hover {
+  background-color: #EAE3EE;
+  color: #5f5f5f;
+}
+
+.burgerButton {
+  left: 2px;
+}
+
+.searchButton {
+  right: 2px;
+}
