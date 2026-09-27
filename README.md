@@ -1,73 +1,97 @@
-# React + TypeScript + Vite
+# SOVA — интернет-журнал о феминизме и женской культуре
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Фронтенд сайта SOVA — феминистского онлайн-журнала. React-приложение со статьями, тегами, поиском по контенту и адаптивным дизайном.
 
-Currently, two official plugins are available:
+## Стек
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **React 19** + **TypeScript**
+- **Vite** — сборка и дев-сервер
+- **React Router** (`createBrowserRouter` + `RouterProvider`)
+- **CSS Modules** — изолированные стили компонентов
+- **Axios** — HTTP-клиент (заложен на будущее, для серверных запросов)
 
-## React Compiler
+## Запуск
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install      # установка зависимостей
+npm run dev      # дев-сервер (Vite)
+npm run build    # продакшен-сборка (tsc + vite)
+npm run preview  # предпросмотр собранного приложения
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Структура проекта
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
 ```
+src/
+├── assets/                 # изображения, SVG-иконки, логотипы
+├── components/             # переиспользуемые UI-компоненты
+│   ├── BurgerMenu/         # мобильное бургер-меню (навигация по тегам)
+│   ├── Card/               # карточка статьи на главной и в тегах
+│   ├── CardSection/        # список карточек с пагинацией «Показать ещё»
+│   ├── Footer/             # подвал с навигацией, логотипом, копирайтом
+│   ├── Header/             # шапка с бургер-меню и поиском (скрывается при скролле)
+│   ├── RelatedArticles/    # блок «Читать также» на странице статьи
+│   └── ...                 # ArticleContent, ArticleHeader, Lead, BackButton и др.
+├── data/
+│   ├── articles/           # статьи (news-1.ts, news-2.ts, news-3.ts) и реестр
+│   └── tags.ts             # реестр тегов
+├── icons/                  # SVG-иконки как React-компоненты
+├── layouts/
+│   └── MainLayout.tsx      # единый layout: Header → Main → Footer
+├── pages/                  # страницы приложения
+│   ├── Home.tsx            # главная
+│   ├── Article.tsx         # статья
+│   ├── TagPage.tsx         # статьи по тегу
+│   ├── Search.tsx          # поиск по сайту
+│   └── NotFound.tsx        # 404
+├── router/
+│   └── router.tsx          # единый источник маршрутов
+├── types/
+│   └── article.ts          # ArticleArgs, ArticlePreview, Tag и др.
+└── index.css               # глобальные стили, переменные, шрифты
+```
+
+## Ключевые архитектурные решения
+
+### Единый роутер
+
+Маршрутизация построена на data router (`createBrowserRouter` + `RouterProvider`). `src/router/router.tsx` — единственный источник истины для маршрутов. `MainLayout` выступает родительским route и отрисовывает `Header`, `Main` и `Footer`, а страницы рендерятся через `Outlet`.
+
+### Данные отделены от отображения
+
+Контент сайта хранится отдельно от компонентов:
+
+- **Статьи** (`src/data/articles/`) — объекты `ArticleArgs` со структурой контентных блоков (paragraph, heading, image, banner).
+- **Реестр статей** (`src/data/articles/index.ts`) — собирает статьи по `slug`, генерирует `articlePreviews` и предоставляет хелперы: `getPreviewsByTag`, `getArticlePreviewsBySlugs`, `searchArticles`.
+- **Компоненты** получают готовые данные через props и занимаются только отображением.
+
+### Связанные статьи
+
+`ArticleArgs.relatedArticles` хранит массив `slug` связанных материалов. На странице статьи они резолвятся в превью через `getArticlePreviewsBySlugs` и отображаются компонентом `RelatedArticles`. Несуществующие `slug` игнорируются без ошибок.
+
+### Теги
+
+Тег — это `{ slug, name }`. Статья может иметь несколько тегов (массив `tags`). Первый тег используется как основной в карточке. Страницы тегов доступны по `/tag/:tagSlug`.
+
+### Поиск
+
+Страница `/search` ищет по заголовкам статей (без учёта регистра). Поиск запускается по Enter или кнопке с лупой. Сейчас работает по локальным данным; функция `searchArticles` заложена так, чтобы в будущем легко заменить её на серверный запрос с той же сигнатурой.
+
+### Карточки и пагинация
+
+`Card` и `CardSection` работают с `ArticlePreview[]`. `CardSection` показывает 8 карточек изначально и подгружает по 10 по кнопке «Показать ещё» — без дублирования данных.
+
+## Шрифты
+
+- **Inter** — основной текст (задан на `body`)
+- **Source Serif 4** — заголовки (h1–h6)
+
+Подключены через Google Fonts с `display=swap`.
+
+## Прелоадер
+
+Статичный прелоадер (белый логотип на сиреневом фоне) вынесен в `index.html`, поэтому появляется мгновенно при обновлении страницы, ещё до загрузки JS. React скрывает его плавно (CSS fade) после монтирования приложения.
+
+## Ветки
+
+Работа ведётся в тематических ветках (например, `feature/search`). Изменения мержатся в `main` и пушатся на GitHub.
