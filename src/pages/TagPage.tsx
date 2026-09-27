@@ -28,7 +28,7 @@ export default function TagPage() {
       <div className={styles.goHomeContainer}>
         <GoHomeButton />
       </div>
-      <h1>Все статьи по теме: {tag.name}</h1>
+      <h1 className={styles.title}>Все статьи по теме: {tag.name}</h1>
       <CardSection previews={previews} />
     </>
   );

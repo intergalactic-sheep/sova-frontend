@@ -30,3 +30,10 @@ export function getArticlePreviewsBySlugs(slugs: string[]): ArticlePreview[] {
     .map((slug) => articlePreviews.find((article) => article.slug === slug))
     .filter((article): article is ArticlePreview => Boolean(article));
 }
+
+export function searchArticles(query: string): ArticlePreview[] {
+  const lower = query.toLowerCase();
+  return articlePreviews.filter(preview =>
+    preview.title.toLowerCase().includes(lower),
+  );
+}

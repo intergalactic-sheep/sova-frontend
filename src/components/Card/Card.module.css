@@ -58,3 +58,8 @@
   font-size: 14px;
   line-height: 16px;
 }
+
+.image {
+  width: 100%;
+  border-radius: 15px;
+}

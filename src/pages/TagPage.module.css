@@ -2,5 +2,12 @@
   width: 100%;
   display: flex;
   justify-content: flex-end;
-  margin-bottom: 24px;
+  margin-bottom: 10px;
+}
+
+.title { 
+  font-size: 28px;
+  line-height: 1.2;
+  margin: 0 auto 20px;
+  padding: 0;
 }
