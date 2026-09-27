@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import { BurgerMenu } from "../BurgerMenu/BurgerMenu";
 import { BurgerIcon } from "../../icons/BurgerIcon";
@@ -11,12 +12,17 @@ export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isHidden, setIsHidden] = useState(false);
   const lastScrollY = useRef(0);
+  const navigate = useNavigate();
+
+  const HEADER_HEIGHT = 178;
+  const HEADER_BOTTOM_MARGIN = 72;
+  const SCROLL_THRESHOLD = HEADER_HEIGHT + HEADER_BOTTOM_MARGIN;
 
   useEffect(() => {
     const handleScroll = () => {
       const currentY = window.scrollY;
 
-      if (currentY > lastScrollY.current && currentY > 0) {
+      if (currentY > lastScrollY.current && currentY > SCROLL_THRESHOLD) {
         setIsHidden(true);
       } else if (currentY < lastScrollY.current) {
         setIsHidden(false);
@@ -49,6 +55,7 @@ export const Header = () => {
           <button
             aria-label="Поиск"
             className={`${styles.navButton} ${styles.searchButton}`}
+            onClick={() => navigate("/search")}
           >
             <SearchIcon />
           </button>

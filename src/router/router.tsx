@@ -4,6 +4,7 @@ import { MainLayout } from '../layouts/MainLayout';
 import Home from '../pages/Home';
 import Article from '../pages/Article';
 import TagPage from '../pages/TagPage';
+import Search from '../pages/Search';
 import NotFound from '../pages/NotFound';
 
 export const router = createBrowserRouter([
@@ -21,6 +22,10 @@ export const router = createBrowserRouter([
       {
         path: '/tag/:tagSlug',
         element: <TagPage />,
+      },
+      {
+        path: '/search',
+        element: <Search />,
       },
       {
         path: '*',
