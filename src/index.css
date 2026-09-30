@@ -1,7 +1,7 @@
 :root {
-  --color-primary: #262229;
-  --color-heading: #171419;
-  --color-bg: #D2C9D7;
+  --color-primary: rgba(38, 34, 41, .9);
+  --color-heading: rgba(23, 20, 25, .9);
+  --color-bg: rgb(210, 201, 215);
   --color-bg-accent: #B7ABBD;
   text-rendering: optimizeLegibility;
 

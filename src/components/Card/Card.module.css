@@ -34,7 +34,7 @@
 }
 
 .link {
-  color: black;
+  color: var(--color-primary);
   font-weight: 400;
   font-size: 14px;
   line-height: 16px;
