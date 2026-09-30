@@ -1,22 +1,18 @@
-import type { ReactNode } from 'react';
-import styles from './Lead.module.css';
+import type { ReactNode } from "react";
+import styles from "./Lead.module.css";
 
 type LeadProps = {
   title: ReactNode;
-  tag?: 'h1' | 'p';
-  variant?: 'default' | 'light';
+  tag?: "h1" | "p";
+  variant?: "default" | "light";
 };
-export const Lead = ({
-  title,
-  tag = 'p',
-  variant = 'default',
-}: LeadProps) => {
+export const Lead = ({ title, tag = "p", variant = "default" }: LeadProps) => {
   const Tag = tag;
 
   return (
     <section
       className={`${styles.lead} ${
-        variant === 'light' ? styles.leadLight : ''
+        variant === "light" ? styles.leadLight : ""
       }`}
     >
       <Tag className={styles.title}>{title}</Tag>
